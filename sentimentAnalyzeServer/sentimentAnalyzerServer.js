@@ -93,11 +93,11 @@ app.get("/url/sentiment", (req,res) => {
 });
 
 //The endpoint for the webserver ending with /text/emotion
-app.get("/url/emotion", (req,res) => {
-    let urlToAnalyze = req.query.url
+app.get("/text/emotion", (req,res) => {
+    let textToAnalyze = req.query.text
     const analyzeParams = 
     {
-        "url": urlToAnalyze,
+        "text": textToAnalyze,
         "features": {
             "keywords": {
                 "emotion": true,
@@ -111,6 +111,7 @@ app.get("/url/emotion", (req,res) => {
     naturalLanguageUnderstanding.analyze(analyzeParams)
     .then(analysisResults => {
         //Retrieve the emotion and return it as a formatted string
+
         return res.send(analysisResults.result.keywords[0].emotion,null,2);
     })
     .catch(err => {
